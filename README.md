@@ -7,13 +7,13 @@ Commands:
 /ttt @status - This shows the game board and status of the game in the current channel. If no game exists, it asks if you would like to start one.
 
 /ttt move - Once the game is in motion, a player who is part of the game in a given channel can make a move.
-The moves are as follows: (Only these can be used as moves)
--Upper-Left
--Upper-Center
--Upper-Right
--Middle-Left
--Middle-Center
--Middle-Right
--Lower-Left
--Lower-Center
--Lower-Right
+The moves are as follows: (Only these can be used as moves) \r
+-Upper-Left \r
+-Upper-Center \r
+-Upper-Right \r
+-Middle-Left \r
+-Middle-Center \r
+-Middle-Right \r
+-Lower-Left \r
+-Lower-Center \r
+-Lower-Right \r
