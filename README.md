@@ -2,6 +2,7 @@
 Tic Tac Toe Plugin for Slack written with Java Spring running on AWS
 
 Commands:
+
 /ttt @username - This initiates a new game within the current channel. After this command, a new game is initiated and any of the players (either @username or the user who started the game) can make the first move. Please type for example:
 "/ttt @agubba" where agubba is the usename registerd within the channel.
 
