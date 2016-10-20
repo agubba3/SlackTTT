@@ -15,6 +15,16 @@ import java.util.Map;
 @Repository
 public class GameDB {
 
+    /**
+     * This is a database simulation
+     * Obviously, the data is not properly stored by an RDS system but I did not have time to integrate a DB
+     * Since I am not constantly redeploying, the games wont be wiped and
+     * I thought it would be sufficient to simply store the elements in a hashmap.
+     * That way the data would be stored in the heap and just garbage collected when not used and games are gone.
+     * In the future given more time, I would include a SQL DB with a very similar schema with the channel ID as a primary key
+     * and use a JDBC driver and Hibernate to I/O. But for now, this works well.
+     */
+
     private static Map<String, Game> games; //game for each channel
     private static HashMap<String, Integer> moves; //all possible moves
     private static Map<String, int[]> winMaps;

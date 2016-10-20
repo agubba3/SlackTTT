@@ -23,6 +23,8 @@ public class SlackPost {
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        //I have stored the token privately but refrained from pushing publically to github
+        //The deployed version has the proper token so POST requests can occur.
         String urlParameters  = "token=";
         urlParameters += "&channel=" + ChannelName;
         urlParameters += "&text=" + text;

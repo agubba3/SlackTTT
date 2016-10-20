@@ -25,6 +25,20 @@ public class TTTController {
     private TTTService tttService; //dependency inject this service into the controller to reduce coupling in our system
     private final AtomicLong counter = new AtomicLong(700);
 
+    /**
+     * Main Controller which receives requests and serves as the primary endpoint for any games
+     * @param token
+     * @param team_id
+     * @param channel_id
+     * @param channel_name
+     * @param user_id
+     * @param user_name
+     * @param command
+     * @param text
+     * @param response_url
+     * @return
+     */
+
     @RequestMapping(method = RequestMethod.GET)
     public TTTInResponse inputGame(@RequestParam(value="token", defaultValue="") String token
     ,@RequestParam(value="team_id", defaultValue="") String team_id
@@ -99,6 +113,7 @@ public class TTTController {
                 resp.setText("Invalid username or move location! Please refer to the 3 commands. You must have an @ before the opponent's username.");
             }
             return resp;
+            //All these exceptions are basically slash command outputs so only the user which made the error sees them.
         } catch (InvalidCommandException e) {
             resp.setColor("#f90000");
             resp.setTitle("Command Problem");
@@ -123,10 +138,17 @@ public class TTTController {
             resp.setColor("#f90000");
             resp.setTitle("Something went wrong with the POST request!");
             resp.setText(e.getMessage());
+            //resp is the output to the slash command, not the POST request to the channel. As such, only the user which entered the command
+            //sees the output of this.
             return resp;
         }
     }
 
+    /**
+     * Methods for sanitation of input purposes.
+     * @param name
+     * @return
+     */
     public String clean(String name) {
         name = name.trim();
         name = name.toLowerCase();

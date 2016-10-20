@@ -28,6 +28,11 @@ public class TTTService {
         gamedb.updateMove(Channel, index, player);
     }
 
+    /**
+     * Algorithm to determine if a game is over.
+     * @param Channel
+     * @return
+     */
     public String whoWon(String Channel) {
         String gameState = gamedb.getGame(Channel).getCurrentGame().toString();
         int[] scoreArr = gamedb.getScore(Channel);
@@ -64,6 +69,11 @@ public class TTTService {
         return gamedb.getStateOfGames();
     }
 
+    /**
+     * Get the current player who must move next.
+     * @param Channel
+     * @return
+     */
     public String getCurrentPlayerTurn(String Channel) {
         if (gamedb.getGame(Channel) == null) {
             return "No game exists in this channel. Perhaps you should start one!";
@@ -86,6 +96,12 @@ public class TTTService {
         return gamedb.getMoves().get(move);
     }
 
+    /**
+     * Get image methods which gets the current image from the channel and renders it
+     * @param Channel
+     * @return
+     * @throws GameCreationException
+     */
     public BufferedImage getImgByChannel(String Channel) throws GameCreationException {
         String curGame = getGameBoard(Channel);
         ImgConfig ic = new ImgConfig();

@@ -9,7 +9,7 @@ import java.net.URL;
 /**
  * Created by agubba on 10/17/16.
  */
-//singleton to only have one set of images
+
 public class ImgConfig {
 
     private static BufferedImage board;
