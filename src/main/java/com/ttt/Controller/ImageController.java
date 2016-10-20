@@ -33,7 +33,18 @@ public class ImageController {
             , @RequestParam(value="count", defaultValue="") String count) {
 
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
-
+        StringBuilder sb = new StringBuilder(channel_id);
+        int atIndex = -1;
+        for (int i = 0; i < sb.length(); i++) {
+            if (sb.charAt(i) == '@') {
+                atIndex = i;
+                break;
+            }
+        }
+        if (atIndex != -1) {
+            sb.delete(atIndex, sb.length());
+            channel_id = sb.toString();
+        }
         try {
             //last move
             if (!state.equals("")) {

@@ -5,6 +5,7 @@ import com.ttt.Exceptions.GameCreationException;
 import com.ttt.Exceptions.IllegalMoveException;
 import com.ttt.Exceptions.InvalidCommandException;
 import com.ttt.Exceptions.PlayerAlreadyMovedException;
+import com.ttt.Service.SlackPost;
 import com.ttt.Service.TTTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +50,7 @@ public class TTTController {
             //can either be a username, "status", or next move position
             String commandText = cleanParams(text);
             //get host name of the server so it can call itself as an image endpoint
-            String localhostname = "http://gsrestservice-agubba3.boxfuse.io";
+            String localhostname = "http://gsrestservice-agubba3.boxfuse.io"; //http://gsrestservice-agubba3.boxfuse.io
             //assuming the command is valid, we proceed
             if (commandText.equals("status")) {
                 if (tttService.getCurrentPlayerTurn(channel_id).equals("No game exists in this channel. Perhaps you should start one!")
@@ -67,16 +68,20 @@ public class TTTController {
                 //make a move to an existing game and also check if the game is done
                 tttService.addMove(channel_id, tttService.getIndexOfMove(commandText), user_name);
                 if (tttService.whoWon(channel_id) == null) {
-                    resp.setTitle(user_name + "'s Move");
-                    resp.setImageUrl(localhostname + ":8080/imageOut?channel_id=" + channel_id + "&count=" + counter.incrementAndGet());
-                    resp.setText("This is what the new status of the board is after " + user_name + " moved.");
+                    resp.setText("Thanks for your move! " + tttService.getCurrentPlayerTurn(channel_id) + " to move now!");
                     resp.setColor("#00f93a");
+                    SlackPost.sendPostM(channel_name, "This is the new status of the board after " + user_name + " moved:" + "<"
+                            + localhostname + ":8080/imageOut?channel_id=" + channel_id + "@" + counter.incrementAndGet() + "> "
+                + tttService.getCurrentPlayerTurn(channel_id));
                 } else { //game is over
-                    resp.setTitle("Game Over! Final Board.");
+                    resp.setTitle("Congratulations!");
                     String state = tttService.getGameBoard(channel_id);
-                    resp.setImageUrl(localhostname + ":8080/imageOut?state=" + state + "&count=" + counter.incrementAndGet());
-                    resp.setText(tttService.whoWon(channel_id));
+//                    resp.setImageUrl(localhostname + ":8080/imageOut?state=" + state + "&count=" + counter.incrementAndGet());
+                    resp.setText("You won the game!");
                     resp.setColor("#00f93a");
+                    SlackPost.sendPostM(channel_name, "Game Over! Final Board: " + "<"
+                            + localhostname + ":8080/imageOut?state=" + state + "@" + counter.incrementAndGet() + "> "
+                            + tttService.whoWon(channel_id));
                     tttService.cleanup(channel_id);
                 }
             } else if (commandText.charAt(0) == '@') {
@@ -110,6 +115,11 @@ public class TTTController {
         } catch (IllegalMoveException e) {
             resp.setColor("#f90000");
             resp.setTitle("Illegal Move Problem");
+            resp.setText(e.getMessage());
+            return resp;
+        } catch (Exception e) {
+            resp.setColor("#f90000");
+            resp.setTitle("Something went wrong with the POST request!");
             resp.setText(e.getMessage());
             return resp;
         }
