@@ -20,16 +20,35 @@ public class TTTService {
     @Autowired
     private GameDB gamedb; //only want one instance of the db which can only talk to this service
 
+    /**
+     * Add a game with two new players and only one can exist per channel
+     * Error handling happens after getting data from the model.
+     * @param Channel
+     * @param player1
+     * @param player2
+     * @throws GameCreationException
+     */
     public void addGame(String Channel, String player1, String player2) throws GameCreationException {
         gamedb.addGame(Channel, player1, player2);
     }
 
+    /**
+     * Given a channel, update the move for the game within the channel.
+     * Error handling happens after getting data from the model.
+     * @param Channel
+     * @param index
+     * @param player
+     * @throws PlayerAlreadyMovedException
+     * @throws IllegalMoveException
+     */
     public void addMove(String Channel, int index, String player) throws PlayerAlreadyMovedException, IllegalMoveException {
         gamedb.updateMove(Channel, index, player);
     }
 
     /**
      * Algorithm to determine if a game is over.
+     * This is quite efficient since we are using the score arrays and incrementally adding information
+     * to know if the game is over
      * @param Channel
      * @return
      */

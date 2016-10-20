@@ -16,14 +16,11 @@ public class ImgConfig {
     private static BufferedImage X;
     private static BufferedImage O;
 
-//    private static final ImgConfig images = new ImgConfig();
     private String error;
     private int XOhw = 120; //height and width of pieces
 
     public ImgConfig() {
-//        if (images != null) {
-//            throw new IllegalStateException("Already instantiated");
-//        }
+
         try {
             board = ImageIO.read(new URL("https://www.filterforge.com/filters/4592.jpg"));
             O = ImageIO.read(new URL("http://i.imgur.com/VDNiMCW.jpg"));
@@ -71,10 +68,5 @@ public class ImgConfig {
     public BufferedImage getO() {
         return O;
     }
-
-//    public static ImgConfig getInstance() {
-//        return images;
-//    }
-
 
 }

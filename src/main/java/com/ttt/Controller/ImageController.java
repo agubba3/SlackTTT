@@ -27,6 +27,13 @@ public class ImageController {
     @Autowired
     private TTTService tttService; //dependency inject this service into the controller to reduce coupling in our system
 
+    /**
+     * Returns an image array as a JPEG output that Spring renders
+     * @param channel_id
+     * @param state
+     * @param count
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity outImage(@RequestParam(value="channel_id", defaultValue="") String channel_id
             , @RequestParam(value="state", defaultValue="") String state

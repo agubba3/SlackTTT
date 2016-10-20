@@ -14,6 +14,16 @@ import static org.springframework.http.HttpHeaders.USER_AGENT;
 public class SlackPost {
 
     // HTTP POST request
+
+    /**
+     * Post request to send a post to the channel so everyone can see
+     * the game after a move has been made and who's turn it is.
+     * The slash command is only able to send a response to the sender
+     * This posts to the entire channel.
+     * @param ChannelName
+     * @param text
+     * @throws Exception
+     */
     public static void sendPostM(String ChannelName, String text) throws Exception {
 
         URL obj = new URL("https://slack.com/api/chat.postMessage");
@@ -53,10 +63,4 @@ public class SlackPost {
         System.out.println(response.toString());
 
     }
-
-//    public static void main(String[] args) throws Exception {
-//        sendPostM("random", "http://gsrestservice-agubba3.boxfuse.io:8080/imageOut?channel_id=C2MKBB3EV@count=12");
-//    }
-
-
 }
