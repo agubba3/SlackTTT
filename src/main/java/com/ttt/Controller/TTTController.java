@@ -23,7 +23,7 @@ public class TTTController {
 
     @Autowired
     private TTTService tttService; //dependency inject this service into the controller to reduce coupling in our system
-    private final AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong(700);
 
     @RequestMapping(method = RequestMethod.GET)
     public TTTInResponse inputGame(@RequestParam(value="token", defaultValue="") String token
@@ -74,14 +74,16 @@ public class TTTController {
                             + localhostname + ":8080/imageOut?channel_id=" + channel_id + "@" + counter.incrementAndGet() + "> "
                 + tttService.getCurrentPlayerTurn(channel_id));
                 } else { //game is over
-                    resp.setTitle("Congratulations!");
+                    if (!tttService.whoWon(channel_id).equals("Stalemate")) { //if its not a stalemate, congratulate the player on their victory
+                        resp.setTitle("Congratulations!");
+                        resp.setText("You won the game!");
+                        resp.setColor("#00f93a");
+                    }
                     String state = tttService.getGameBoard(channel_id);
-//                    resp.setImageUrl(localhostname + ":8080/imageOut?state=" + state + "&count=" + counter.incrementAndGet());
-                    resp.setText("You won the game!");
-                    resp.setColor("#00f93a");
                     SlackPost.sendPostM(channel_name, "Game Over! Final Board: " + "<"
                             + localhostname + ":8080/imageOut?state=" + state + "@" + counter.incrementAndGet() + "> "
                             + tttService.whoWon(channel_id));
+                    //clean up - delete the game and pertinent information from the game db
                     tttService.cleanup(channel_id);
                 }
             } else if (commandText.charAt(0) == '@') {

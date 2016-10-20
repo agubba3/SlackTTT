@@ -1,5 +1,9 @@
 package com.ttt.Entities;
 
+import com.ttt.ImgConfig;
+
+import java.awt.image.BufferedImage;
+
 /**
  * Created by agubba on 10/12/16.
  */
@@ -16,6 +20,7 @@ public class Game {
     private StringBuilder currentGame;
     private String lastPlayer;
     private int counter;
+    private BufferedImage board;
     //represent the board as a string reading the board from left to right
     //example above would be XOOOXXXOX
 
@@ -24,7 +29,10 @@ public class Game {
         this.player2 = player2;
         this.currentGame = new StringBuilder("SSSSSSSSS");
         this.counter = 0;
+        this.board = new ImgConfig().getBoard();
     }
+
+    public BufferedImage getcurrentboard() {return board;}
 
     public String getPlayer1() {
         return player1;
@@ -38,9 +46,7 @@ public class Game {
         return this.counter;
     }
 
-    public void setCount(int c) {
-        this.counter = c;
-    }
+    public void setCount(int c) { this.counter =  c; }
 
     public void setLastPlayer(String p) {
         this.lastPlayer = p;

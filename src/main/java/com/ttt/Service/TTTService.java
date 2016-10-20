@@ -39,13 +39,13 @@ public class TTTService {
             }
         }
         for (int i = 0; i < gameState.length(); i++) {
-            if (i == gameState.length() - 1) {
+            if (gameState.charAt(i) == 'S') {
+                return null;
+            } else if (i == gameState.length() - 1) {
                 return "Stalemate";
-            } else if (gameState.charAt(i) == 'S') {
-                break;
             }
         }
-        return null; //game is not finished
+        return null;
     }
 
     /**
@@ -91,7 +91,7 @@ public class TTTService {
         ImgConfig ic = new ImgConfig();
         BufferedImage imageO = ic.getO();
         BufferedImage imageX = ic.getX();
-        BufferedImage board = ic.getBoard();
+        BufferedImage board = gamedb.getGame(Channel).getcurrentboard();
         Graphics g = board.getGraphics();
         for (int i = 0; i < curGame.length(); i++) {
             int width = (((i % 3) * 165) + 30);

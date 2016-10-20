@@ -19,12 +19,11 @@ public class SlackPost {
         URL obj = new URL("https://slack.com/api/chat.postMessage");
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-        //add reuqest header
+        //add reqest header
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-        String urlParameters  = "token=xoxp-89645978448-93593846116-93662865746-ae268cfb9c2291f19176ad439e2a3c3e";
+        String urlParameters  = "token=";
         urlParameters += "&channel=" + ChannelName;
         urlParameters += "&text=" + text;
         urlParameters += "&username=" + "TTT Bot";
