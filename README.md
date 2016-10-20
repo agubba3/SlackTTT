@@ -16,14 +16,6 @@ Examples of this command using the below commands are:
 
 The moves are as follows: (Only these can be used as moves) 
 
--Upper-Left 
--Upper-Center 
--Upper-Right 
--Middle-Left 
--Middle-Center 
--Middle-Right 
--Lower-Left 
--Lower-Center 
--Lower-Right 
+Upper-Left, Upper-Center, Upper-Right, Middle-Left, Middle-Center, Middle-Right, Lower-Left, Lower-Center, Lower-Right 
 
 To play, you MUST first create a game or else app will let you know. Then ANY player who is in the game (either the user who requested the game or the user the requested user requested to play against) can make the first move with the above "/ttt move" command. Then messages will be sent to the channel anytime someone plays and a user can also request a status. Once the game is over via a stalemate or a player wins, the app will let the channel and reopen the channel to add a new game. That would complete the life cycle of a game.
